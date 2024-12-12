@@ -51,7 +51,7 @@
 
       <div class="product-buttons">
         <button id="add-to-cart" class="btn">Add to Cart</button>
-        <button id="like-button" class="btn">Like</button>
+        <button id="like-button" data-product-id="product-1" class="btn">Like</button>
       </div>
     </div>
   </div>
@@ -112,12 +112,36 @@
             image: 'PR 1.png'
         };
 
-        let cart = JSON.parse(localStorage.getItem('cart')) || [];
-        cart.push(product);
-        localStorage.setItem('cart', JSON.stringify(cart));
+        // Heart button functionality
+document.querySelector('#like-button').addEventListener('click', function() {
+      const likeButton = this;
+      const productID = likeButton.getAttribute('data-product-id'); // Get unique product ID from the button
 
-        alert('Product added to cart!');
-    });
+      // Check if the product has been favorited
+      const isFavorited = localStorage.getItem(productID);
+
+      // If it's not favorited yet
+      if (!isFavorited) {
+          // Mark the product as favorited
+          localStorage.setItem(productID, 'true');
+          likeButton.classList.add('filled'); // Fill the heart
+          alert('Favorites!');
+      } else {
+          // If it's already favorited, show the message
+          alert('You already Favorited this product!');
+      }
+  });
+
+  // On page load, check if the product is already favorited
+  window.addEventListener('DOMContentLoaded', (event) => {
+      const likeButton = document.querySelector('#like-button');
+      const productID = likeButton.getAttribute('data-product-id'); // Get unique product ID from the button
+
+      // Check if the product is favorited
+      if (localStorage.getItem(productID)) {
+          likeButton.classList.add('filled'); // If it's favorited, fill the heart
+      }
+  });
 </script>
 
 <script src="script.js"></script>
