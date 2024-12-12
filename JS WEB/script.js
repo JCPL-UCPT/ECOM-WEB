@@ -3,8 +3,3 @@ document.getElementById('add-to-cart').addEventListener('click', function() {
     button.textContent = "Added to Cart";
     button.disabled = true;
   });
-  
-  document.getElementById('like-button').addEventListener('click', function() {
-    alert('You liked this product!');
-  });
-  
